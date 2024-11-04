@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -33,6 +34,11 @@ public class Vendor {
         return confirmPassword;
     }
 
+    public Vendor(String name, String password){
+        this.name = name;
+        this.password = password;
+    }
+
     public static HashMap<String,String> vendors = new HashMap<String,String>();
 
     public static void venderRegister(){
@@ -50,7 +56,7 @@ public class Vendor {
                     System.out.println("Name contains a letter");
                 }else if(vendorName.length()<3){
                     System.out.println("Not a Valid Vendor Name");
-                }else if(vendors.containsValue(vendorName)){
+                }else if(vendors.containsKey(vendorName)){
                     System.out.println("Vendor Already Exists");
                     System.out.println("Use another Vendor Name");
                 }else{
@@ -107,13 +113,43 @@ public class Vendor {
         vendors.put(vendorName,vendorPassword);
         System.out.println(vendors);
     }
-    public static void venderLogin(){
+    public static Vendor venderLogin(){
         Scanner input = new Scanner(System.in);
         System.out.println("////////////////////=========================////////////////////");
         System.out.println("///////////////////====== Vendor Login ======////////////////////");
         System.out.println("");
-
-
+        while (true){
+            System.out.print("Vendor Name: ");
+            vendorName = input.nextLine();
+            if(vendorName.trim().isEmpty()){
+                System.out.println("Name cannot be empty");
+            }else if(vendorName.length()<3){
+                System.out.println("Not a Valid Vendor Name");
+            } else if (!vendors.containsKey(vendorName)) {
+                System.out.println("User name not found");
+            }else{
+                break;
+            }
+        }
+        while(true){
+            System.out.print("Vendor Password: ");
+            vendorPassword = input.nextLine();
+            if(vendorPassword.trim().isEmpty()){
+                System.out.println("Password cannot be empty");
+            }else if(vendorPassword.length()<6){
+                System.out.println("Not a Valid Vendor Password");
+            }else if(!vendors.containsValue(vendorPassword)){
+                System.out.println("Passwords do not match");
+                System.out.println("Password incorrect. Please try again");
+            }else{
+                System.out.println("Vendor login successful");
+                break;
+            }
+        }
+        Vendor vendor = new Vendor(vendorName,vendorPassword);
+        return vendor;
+    }
+    public static void vendorProfile(){
+        System.out.println(venderLogin().getName());
     }
 }
-clear

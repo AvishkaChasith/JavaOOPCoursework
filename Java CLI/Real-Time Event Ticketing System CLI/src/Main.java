@@ -14,9 +14,16 @@ public class Main{
                 case 1:
                     Vendor.venderRegister();
                     break;
+                case 2:
+                    System.out.println("Customer Registration");
+                    break;
                 case 3:
                     Vendor.venderLogin();
                     break;
+                case 4:
+                    System.out.println("Customer Login");
+                    break;
+                default:
             }
         }
 
