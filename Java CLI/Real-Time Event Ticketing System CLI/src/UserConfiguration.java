@@ -100,5 +100,8 @@ public class UserConfiguration {
         System.out.println("Ticket Release Rate: "+user.getTicketReleaseRate());
         System.out.println("Customer Retrieval Rate: "+user.getCustomerRetrievalRate());
         System.out.println("Max Ticket Capacity: "+user.getMaxTicketCapacity());
+
+        System.out.println("User Configuration Successfully");
     }
+
 }

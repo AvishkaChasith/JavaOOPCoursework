@@ -12,21 +12,21 @@ public class Main{
             applicationMenu();
             switch(userOption){
                 case 1:
-                    Vendor.venderRegister();
+                    Vendor.vendorRegister();
                     break;
                 case 2:
                     System.out.println("Customer Registration");
                     break;
                 case 3:
-                    Vendor.venderLogin();
+                    Vendor.vendorLogin();
                     break;
                 case 4:
                     System.out.println("Customer Login");
                     break;
                 default:
+
             }
         }
-
     }
     public static void applicationMenu(){
         userOptionValidity = false;
@@ -56,15 +56,15 @@ public class Main{
                 }
                 else if(userOption==4){
                     userOptionValidity = true;
-                }
-                else {
+                } else if (userOption==0) {
+                    userOptionValidity=true;
+                } else {
                     System.out.println("Invalid option");
                     userOptionValidity=false;
                 }
             }catch (InputMismatchException e){
                 System.out.println("Please enter a valid option!");
             }
-            System.out.println("////////////////======================/////////////////");
             System.out.println("");
         }
 

@@ -1,10 +1,9 @@
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Vendor {
+public class Vendor implements Runnable {
     private static String vendorName;
     private static String vendorEmail;
     private static String vendorPassword;
@@ -39,14 +38,16 @@ public class Vendor {
         this.password = password;
     }
 
+
     public static HashMap<String,String> vendors = new HashMap<String,String>();
 
-    public static void venderRegister(){
+    public static void  vendorRegister(){
         try{
             Scanner input = new Scanner(System.in);
+            System.out.println(" ");
             System.out.println("////////////////======================/////////////////");
             System.out.println("//////////////// Vendor Registration  /////////////////");
-            System.out.println("");
+            System.out.println(" ");
             while (true){
                 System.out.print("Name: ");
                 vendorName = input.nextLine();
@@ -107,49 +108,59 @@ public class Vendor {
 
             }
         }catch(InputMismatchException e){
-
+            System.out.println("Please enter a valid details");
         }
-        Vendor vendor = new Vendor(vendorName,vendorEmail,vendorPassword,vendorConfirmPassword);
         vendors.put(vendorName,vendorPassword);
         System.out.println(vendors);
     }
-    public static Vendor venderLogin(){
+    public static void vendorLogin() {
         Scanner input = new Scanner(System.in);
         System.out.println("////////////////////=========================////////////////////");
         System.out.println("///////////////////====== Vendor Login ======////////////////////");
-        System.out.println("");
-        while (true){
+        System.out.println(" ");
+        while (true) {
             System.out.print("Vendor Name: ");
             vendorName = input.nextLine();
-            if(vendorName.trim().isEmpty()){
+            if (vendorName.trim().isEmpty()) {
                 System.out.println("Name cannot be empty");
-            }else if(vendorName.length()<3){
+            } else if (vendorName.length() < 3) {
                 System.out.println("Not a Valid Vendor Name");
             } else if (!vendors.containsKey(vendorName)) {
                 System.out.println("User name not found");
-            }else{
+            } else {
                 break;
             }
         }
-        while(true){
+        while (true) {
             System.out.print("Vendor Password: ");
             vendorPassword = input.nextLine();
-            if(vendorPassword.trim().isEmpty()){
+            if (vendorPassword.trim().isEmpty()) {
                 System.out.println("Password cannot be empty");
-            }else if(vendorPassword.length()<6){
+            } else if (vendorPassword.length() < 6) {
                 System.out.println("Not a Valid Vendor Password");
-            }else if(!vendors.containsValue(vendorPassword)){
+            } else if (!vendors.containsValue(vendorPassword)) {
                 System.out.println("Passwords do not match");
                 System.out.println("Password incorrect. Please try again");
-            }else{
+            } else {
                 System.out.println("Vendor login successful");
                 break;
             }
         }
-        Vendor vendor = new Vendor(vendorName,vendorPassword);
-        return vendor;
+        Vendor vendor = new Vendor(vendorName, vendorPassword);
+        System.out.println("////////////////////========================////////////////////");
+        System.out.println("/////////////// " + vendor.getName() + " Profile ///////////////");
+
+
     }
-    public static void vendorProfile(){
-        System.out.println(venderLogin().getName());
+
+
+    @Override
+    public void run() {
+        vendorRegister();
+        vendorLogin();
+        try { Thread.sleep(1000000000);
+        }catch (InterruptedException e)
+        { Thread.currentThread().interrupt();}
     }
 }
+
