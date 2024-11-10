@@ -6,7 +6,7 @@ public class Main{
     public static boolean userOptionValidity;
 
     public static void main(String[] args){
-        //UserConfiguration.UserConfigurationMenu();
+        UserConfiguration.userConfigurationMenu();
 
         while(true){
             applicationMenu();
@@ -18,12 +18,13 @@ public class Main{
                     System.out.println("Customer Registration");
                     break;
                 case 3:
-                    Vendor.vendorLogin();
+                    Vendor.addTicket(Vendor.vendorLogin());
                     break;
                 case 4:
                     System.out.println("Customer Login");
                     break;
-                default:
+                case 5:
+                    System.out.println("Exit: ");
 
             }
         }
@@ -36,12 +37,13 @@ public class Main{
             System.out.println();
             System.out.println("////////////////======================/////////////////");
             System.out.println("///////// Real-Time Ticket Management System //////////");
-            System.out.println("");
+            System.out.println(" ");
             System.out.println("               1) Vendor Register: Enter 1"  );
             System.out.println("               2) Customer Register: Enter 2"  );
             System.out.println("               3) Vendor Login: Enter 3"  );
-            System.out.println("               2) Customer Login: Enter 4"  );
-            System.out.println("");
+            System.out.println("               4) Customer Login: Enter 4"  );
+            System.out.println("               5) Exit: Enter 5"  );
+            System.out.println(" ");
             System.out.print("Enter your option: ");
             try{
                 userOption = input.nextInt();
@@ -56,8 +58,8 @@ public class Main{
                 }
                 else if(userOption==4){
                     userOptionValidity = true;
-                } else if (userOption==0) {
-                    userOptionValidity=true;
+                } else if (userOption==5) {
+                    userOptionValidity = true;
                 } else {
                     System.out.println("Invalid option");
                     userOptionValidity=false;
@@ -65,7 +67,7 @@ public class Main{
             }catch (InputMismatchException e){
                 System.out.println("Please enter a valid option!");
             }
-            System.out.println("");
+            System.out.println(" ");
         }
 
 

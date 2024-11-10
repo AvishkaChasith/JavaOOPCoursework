@@ -35,9 +35,13 @@ public class UserConfiguration {
         return maxTicketCapacity;
     }
 
+    public void setTotalTickets(int totalTickets) {
+        this.totalTickets = totalTickets;
+    }
 
+    public UserConfiguration(){}
 
-    public static void UserConfigurationMenu(){
+    public static UserConfiguration userConfigurationMenu(){
         Scanner input = new Scanner(System.in);
         validInput=false;
         while (!validInput){
@@ -81,8 +85,8 @@ public class UserConfiguration {
         while (!validInput) {
             try {
                 System.out.print("Enter Max Ticket Capacity: ");
-                int maxTicketCapacity = input.nextInt();
-                if(userMaxTicketCapacity< userTotalTickets) {
+                userMaxTicketCapacity = input.nextInt();
+                if(userMaxTicketCapacity < userTotalTickets) {
                     System.out.println("Wrong value for Max Ticket Capacity.Total Tickets Value is more than Max Ticket Capacity Value.");
                     validInput = false;
                 }else
@@ -102,6 +106,7 @@ public class UserConfiguration {
         System.out.println("Max Ticket Capacity: "+user.getMaxTicketCapacity());
 
         System.out.println("User Configuration Successfully");
+        return user;
     }
 
 }
