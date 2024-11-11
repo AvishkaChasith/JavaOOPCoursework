@@ -8,20 +8,15 @@ public class Vendor extends UserConfiguration implements Runnable {
     private static String vendorPassword;
     private static String vendorConfirmPassword;
     private static int vendorAddTicket;
-
+    
     private String name;
     private String email;
     private String password;
-    private String confirmPassword;
 
     public Vendor(String name, String email, String password, String confirmPassword) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
-    }
-    public Vendor(String name) {
-        this.name = name;
     }
 
     public String getName() {
