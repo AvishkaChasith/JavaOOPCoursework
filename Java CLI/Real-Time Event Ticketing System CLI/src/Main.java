@@ -9,23 +9,27 @@ public class Main{
         UserConfiguration.userConfigurationMenu();
 
         while(true){
-            applicationMenu();
-            switch(userOption){
-                case 1:
-                    Vendor.vendorRegister();
-                    break;
-                case 2:
-                    System.out.println("Customer Registration");
-                    break;
-                case 3:
-                    Vendor.addTicket(Vendor.vendorLogin());
-                    break;
-                case 4:
-                    System.out.println("Customer Login");
-                    break;
-                case 5:
-                    System.out.println("Exit: ");
+            try {
+                applicationMenu();
+                switch (userOption) {
+                    case 1:
+                        Vendor.vendorRegister();
+                        break;
+                    case 2:
+                        System.out.println("Customer Registration");
+                        break;
+                    case 3:
+                        Vendor.vendorLogin();
+                        break;
+                    case 4:
+                        System.out.println("Customer Login");
+                        break;
+                    case 5:
+                        System.out.println("Exit: ");
 
+                }
+            }catch (InputMismatchException e){
+                System.out.println("Please enter a valid option!");
             }
         }
     }

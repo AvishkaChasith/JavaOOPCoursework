@@ -106,6 +106,7 @@ public class UserConfiguration {
         System.out.println("Max Ticket Capacity: "+user.getMaxTicketCapacity());
 
         System.out.println("User Configuration Successfully");
+        TicketPool.generateTicketId();
         return user;
     }
 

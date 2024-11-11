@@ -7,18 +7,26 @@ public class Vendor extends UserConfiguration implements Runnable {
     private static String vendorEmail;
     private static String vendorPassword;
     private static String vendorConfirmPassword;
-    private static int vendorAddTicket;
-    
-    private String name;
-    private String email;
-    private String password;
+    private static int vendorId;
 
-    public Vendor(String name, String email, String password, String confirmPassword) {
+
+    private final int vendorID;
+    private final String name;
+    private final String email;
+    private final String password;
+    private final String confirmPassword;
+
+
+    public Vendor(int vendorID,String name, String email, String password, String confirmPassword) {
+        this.vendorID = vendorID;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.confirmPassword = confirmPassword;
     }
-
+    public int getVendorID() {
+        return vendorID;
+    }
     public String getName() {
         return name;
     }
@@ -97,12 +105,14 @@ public class Vendor extends UserConfiguration implements Runnable {
         }catch(Exception e){
             System.out.println("Please enter a valid details");
         }
-        Vendor vendor = new Vendor(vendorName, vendorEmail, vendorPassword, vendorConfirmPassword);
+        vendorId= vendorId+1;
+        Vendor vendor = new Vendor(vendorId,vendorName, vendorEmail, vendorPassword, vendorConfirmPassword);
+        System.out.println("Vendor ID: "+vendorId);
         vendors.put(vendorName,vendor);
         vendorsDetails.put(vendorEmail,vendorPassword);
         System.out.println(vendor.getName()+" is registered successfully as a Vendor");
     }
-    public static Vendor vendorLogin() {
+    public static void vendorLogin() {
         Scanner input = new Scanner(System.in);
         System.out.println("////////////////////=========================////////////////////");
         System.out.println("///////////////////====== Vendor Login ======////////////////////");
@@ -136,38 +146,14 @@ public class Vendor extends UserConfiguration implements Runnable {
                 break;
             }
         }
-        return vendor;
 
+        TicketPool.addTicket(vendor);
     }
-    public static void addTicket(Vendor vendor) {
-        System.out.println("/// TICKET ADDING ///");
-        System.out.println("Now System has Total Tickets: "+UserConfiguration.userTotalTickets);
-        while (true){
-            Scanner input = new Scanner(System.in);
-            System.out.println("Maximum Ticket Amount: "+UserConfiguration.userMaxTicketCapacity);
-            System.out.print(vendor.getName()+" Tickets amount that you want to add to the Ticket Pool:  ");
-            vendorAddTicket = input.nextInt();
-            if (UserConfiguration.userMaxTicketCapacity<vendorAddTicket+UserConfiguration.userTotalTickets) {
-                System.out.println("Maximum Ticket Capacity exceeded");
-                System.out.println("Please try again");
-            } else if (vendorAddTicket + UserConfiguration.userTotalTickets == UserConfiguration.userMaxTicketCapacity) {
-                System.out.println("Add Tickets Level Reached");
-                vendorAddTicket+=vendorAddTicket;
-                UserConfiguration.userTotalTickets=vendorAddTicket;
-                break;
-            } else {
-                vendorAddTicket+=vendorAddTicket;
-                UserConfiguration.userTotalTickets = vendorAddTicket;
-                System.out.println("Complete");
-                break;
-            }
-        }
 
-    }
 
     @Override
     public void run() {
-        addTicket(vendorLogin());
+
         try { Thread.sleep(1000000000);
         }catch (InterruptedException e)
         { Thread.currentThread().interrupt();}
