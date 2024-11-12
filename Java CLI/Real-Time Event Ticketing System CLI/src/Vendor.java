@@ -3,35 +3,37 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Vendor extends UserConfiguration implements Runnable {
-    private static String vendorName;
-    private static String vendorEmail;
-    private static String vendorPassword;
-    private static String vendorConfirmPassword;
-    private static int vendorId;
+    private static String vName;
+    private static String vEmail;
+    private static String vPassword;
+    private static String vConfirmPassword;
+    private static int vId;
 
 
-    private final int vendorID;
-    private final String name;
-    private final String email;
-    private final String password;
-    private final String confirmPassword;
+    private  int vendorID;
+    private  String vendorName;
+    private  String vendorEmail;
+    private  String vendorPassword;
+    private  String vendorConfirmPassword;
+    private int VendorTicketPerRelease;
+    private int vendorReleaseInterval;
 
-
-    public Vendor(int vendorID,String name, String email, String password, String confirmPassword) {
+    static Scanner input = new Scanner(System.in);
+    public Vendor(int vendorID,String vendorName, String vendorEmail, String vendorPassword, String vendorConfirmPassword) {
         this.vendorID = vendorID;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
+        this.vendorName = vendorName;
+        this.vendorEmail = vendorEmail;
+        this.vendorPassword = vendorPassword;
+        this.vendorConfirmPassword = vendorConfirmPassword;
     }
     public int getVendorID() {
         return vendorID;
     }
-    public String getName() {
-        return name;
+    public String getVendorName() {
+        return vendorName;
     }
-    public String getPassword() {
-        return password;
+    public String getVendorPassword() {
+        return vendorPassword;
     }
     public static HashMap<String,Vendor> vendors = new HashMap<String,Vendor>();
     public static HashMap<String,String> vendorsDetails = new HashMap<String,String>();
@@ -45,14 +47,14 @@ public class Vendor extends UserConfiguration implements Runnable {
             System.out.println(" ");
             while (true){
                 System.out.print("Name: ");
-                vendorName = input.nextLine();
-                if(vendorName.trim().isEmpty()){
+                vName = input.nextLine();
+                if(vName.trim().isEmpty()){
                     System.out.println("Name cannot be empty");
-                } else if (!vendorName.matches("[a-zA-Z\\s]+")) {
+                } else if (!vName.matches("[a-zA-Z\\s]+")) {
                     System.out.println("Name contains a letter");
-                }else if(vendorName.length()<3){
+                }else if(vName.length()<3){
                     System.out.println("Not a Valid Vendor Name");
-                }else if(vendors.containsKey(vendorName)){
+                }else if(vendors.containsKey(vName)){
                     System.out.println("Vendor Already Exists");
                     System.out.println("Use another Vendor Name");
                 }else{
@@ -61,12 +63,12 @@ public class Vendor extends UserConfiguration implements Runnable {
             }
             while(true){
                 System.out.print("Email: ");
-                vendorEmail = input.nextLine();
-                if(vendorEmail.trim().isEmpty()){
+                vEmail = input.nextLine();
+                if(vEmail.trim().isEmpty()){
                     System.out.println("Email cannot be empty");
-                }else if(vendorEmail.length()<13){
+                }else if(vEmail.length()<13){
                     System.out.println("Not a Valid Vendor Email");
-                }else if(vendorsDetails.containsKey(vendorEmail)){
+                }else if(vendorsDetails.containsKey(vEmail)){
                     System.out.println("Gmail has already an account. Please use another Vendor Email for creating a new one.");
                 }else {
                     break;
@@ -74,14 +76,14 @@ public class Vendor extends UserConfiguration implements Runnable {
             }
             while(true){
                 System.out.print("Password: ");
-                vendorPassword = input.nextLine();
-                if(vendorPassword.trim().isEmpty()){
+                vPassword = input.nextLine();
+                if(vPassword.trim().isEmpty()){
                     System.out.println("Password cannot be empty");
                 }
-                else if(vendorPassword.length()<6) {
+                else if(vPassword.length()<6) {
                     System.out.println("Not a Valid Vendor Password");
 
-                }else if (vendorsDetails.containsValue(vendorPassword)){
+                }else if (vendorsDetails.containsValue(vPassword)){
                    System.out.println("Use another password");
                 }else {
                     break;
@@ -89,13 +91,13 @@ public class Vendor extends UserConfiguration implements Runnable {
             }
             while(true){
                 System.out.print("Confirm Password: ");
-                vendorConfirmPassword = input.nextLine();
+                vConfirmPassword = input.nextLine();
 
-                if(vendorConfirmPassword.trim().isEmpty()){
+                if(vConfirmPassword.trim().isEmpty()){
                     System.out.println("Confirm Password cannot be empty");
-                }else if(vendorConfirmPassword.length()<6){
+                }else if(vConfirmPassword.length()<6){
                     System.out.println("Not a Valid Vendor Confirm Password");
-                }else if (!Objects.equals(vendorPassword, vendorConfirmPassword)) {
+                }else if (!Objects.equals(vPassword, vConfirmPassword)) {
                     System.out.println("Passwords do not match");
                 }else {
                     break;
@@ -105,13 +107,14 @@ public class Vendor extends UserConfiguration implements Runnable {
         }catch(Exception e){
             System.out.println("Please enter a valid details");
         }
-        vendorId= vendorId+1;
-        Vendor vendor = new Vendor(vendorId,vendorName, vendorEmail, vendorPassword, vendorConfirmPassword);
-        System.out.println("Vendor ID: "+vendorId);
-        vendors.put(vendorName,vendor);
-        vendorsDetails.put(vendorEmail,vendorPassword);
-        System.out.println(vendor.getName()+" is registered successfully as a Vendor");
+        vId= vId+1;
+        Vendor vendor = new Vendor(vId,vName, vEmail, vPassword, vConfirmPassword);
+        System.out.println("Vendor ID: "+vId);
+        vendors.put(vName,vendor);
+        vendorsDetails.put(vEmail,vPassword);
+        System.out.println(vendor.getVendorName()+" is registered successfully as a Vendor");
     }
+
     public static void vendorLogin() {
         Scanner input = new Scanner(System.in);
         System.out.println("////////////////////=========================////////////////////");
@@ -119,26 +122,26 @@ public class Vendor extends UserConfiguration implements Runnable {
         System.out.println(" ");
         while (true) {
             System.out.print("Vendor Name: ");
-            vendorName = input.nextLine();
-            if (vendorName.trim().isEmpty()) {
+            vName = input.nextLine();
+            if (vName.trim().isEmpty()) {
                 System.out.println("Name cannot be empty");
-            } else if (vendorName.length() < 3) {
+            } else if (vName.length() < 3) {
                 System.out.println("Not a Valid Vendor Name");
-            } else if (!vendors.containsKey(vendorName)) {
+            } else if (!vendors.containsKey(vName)) {
                 System.out.println("User name not found");
             } else {
                 break;
             }
         }
-        Vendor vendor = vendors.get(vendorName);
+        Vendor vendor = vendors.get(vName);
         while (true) {
             System.out.print("Vendor Password: ");
-            vendorPassword = input.nextLine();
-            if (vendorPassword.trim().isEmpty()) {
+            vPassword = input.nextLine();
+            if (vPassword.trim().isEmpty()) {
                 System.out.println("Password cannot be empty");
-            } else if (vendorPassword.length() < 6) {
+            } else if (vPassword.length() < 6) {
                 System.out.println("Not a Valid Vendor Password");
-            } else if (!vendor.getPassword().equals(vendorPassword)) {
+            } else if (!vendor.getVendorPassword().equals(vPassword)) {
                 System.out.println("Passwords do not match");
                 System.out.println("Password incorrect. Please try again");
             } else {
@@ -146,8 +149,27 @@ public class Vendor extends UserConfiguration implements Runnable {
                 break;
             }
         }
+        Vendor.setupVendorConfiguration(vendor);
 
         TicketPool.addTicket(vendor);
+    }
+
+
+    public static void setupVendorConfiguration(Vendor vendor) {
+        System.out.println("Configuration Menu for "+vendor.getVendorName());
+        System.out.println("1.Add tickets to the Ticket Pool: ");
+        System.out.println("2.Show all tickets: ");
+        System.out.println("3.Your Ticket History: ");
+        System.out.println("4.Exit: ");
+        System.out.println("Choose your option: ");
+        int vendorOption = input.nextInt();
+        if(vendorOption == 1){
+            Vendor.vendorOption1(vendor);
+        }
+    }
+    public static void vendorOption1(Vendor vendor) {
+        TicketPool.addTicket(vendor);
+
     }
 
 

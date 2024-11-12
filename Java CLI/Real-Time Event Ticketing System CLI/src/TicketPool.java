@@ -1,38 +1,34 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 public class TicketPool{
-    private final int ticketId;
-    private static String ticketPrice="Rs.200.00";
+    private static int lastTicketID=UserConfiguration.userTotalTickets;
+    private static int vendorTicketsPerRelease;
+    static Scanner input = new Scanner(System.in);
 
-    public static int ticketID;
 
-    public static ArrayList tickets=new ArrayList();
 
-    public static void generateTicketId(){
-        for (int i =1;i<=UserConfiguration.userTotalTickets;i++){
-            ticketID=ticketID+1;
-            tickets.add(new TicketPool(ticketID,ticketPrice));
-        }
-    }
+    static List<TicketPool> tickets = Collections.synchronizedList(new ArrayList<>());
 
-    public TicketPool(int ticketId, String ticketPrice){
-        this.ticketId = ticketId;
-        TicketPool.ticketPrice = ticketPrice;
-    }
-    public int getTicketId(){
-        return ticketId;
-    }
-    public String getTicketPrice(){
-        return ticketPrice;
-    }
-
-    @Override
-    public String toString(){
-        return "Ticket ID: "+ticketId+" Ticket Price: "+ticketPrice+"\n";
-    }
     public static void addTicket(Vendor vendor){
+        synchronized (tickets){
+            System.out.println("💻☆*: .｡. o(≧▽≦)o .｡.:*☆💻 "+vendor.getVendorName()+" Profile 💻☆*: .｡. o(≧▽≦)o .｡.:*☆💻");
+            System.out.print("Tickets per release amount: ");
+            vendorTicketsPerRelease=input.nextInt();
+            for (int i = 0; i < vendorTicketsPerRelease; i++){
+                lastTicketID++;
+                tickets.add(lastTicketID,new TicketPool());
+            }
+            System.out.println(tickets);
 
-        System.out.println("adding new ticket"+vendor.getName());
+        }
+
+
+
     }
+
+
 
 }
