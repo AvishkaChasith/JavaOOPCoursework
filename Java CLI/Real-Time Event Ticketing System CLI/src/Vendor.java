@@ -1,14 +1,15 @@
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Vendor extends UserConfiguration implements Runnable {
+public class Vendor implements Runnable {
     private static String vName;
     private static String vEmail;
     private static String vPassword;
     private static String vConfirmPassword;
     private static int vId;
-
+    public static int vendorOption;
 
     private  int vendorID;
     private  String vendorName;
@@ -26,6 +27,8 @@ public class Vendor extends UserConfiguration implements Runnable {
         this.vendorPassword = vendorPassword;
         this.vendorConfirmPassword = vendorConfirmPassword;
     }
+    public Vendor (){}
+
     public int getVendorID() {
         return vendorID;
     }
@@ -35,6 +38,7 @@ public class Vendor extends UserConfiguration implements Runnable {
     public String getVendorPassword() {
         return vendorPassword;
     }
+
     public static HashMap<String,Vendor> vendors = new HashMap<String,Vendor>();
     public static HashMap<String,String> vendorsDetails = new HashMap<String,String>();
 
@@ -115,7 +119,7 @@ public class Vendor extends UserConfiguration implements Runnable {
         System.out.println(vendor.getVendorName()+" is registered successfully as a Vendor");
     }
 
-    public static void vendorLogin() {
+    public static Vendor vendorLogin() {
         Scanner input = new Scanner(System.in);
         System.out.println("////////////////////=========================////////////////////");
         System.out.println("///////////////////====== Vendor Login ======////////////////////");
@@ -151,31 +155,64 @@ public class Vendor extends UserConfiguration implements Runnable {
         }
         Vendor.setupVendorConfiguration(vendor);
 
-        TicketPool.addTicket(vendor);
+        return vendor;
     }
-
 
     public static void setupVendorConfiguration(Vendor vendor) {
-        System.out.println("Configuration Menu for "+vendor.getVendorName());
-        System.out.println("1.Add tickets to the Ticket Pool: ");
-        System.out.println("2.Show all tickets: ");
-        System.out.println("3.Your Ticket History: ");
-        System.out.println("4.Exit: ");
-        System.out.println("Choose your option: ");
-        int vendorOption = input.nextInt();
-        if(vendorOption == 1){
-            Vendor.vendorOption1(vendor);
-        }
-    }
-    public static void vendorOption1(Vendor vendor) {
-        TicketPool.addTicket(vendor);
 
+            System.out.println("Configuration Menu for "+vendor.getVendorName());
+            System.out.println("1.Add tickets to the Ticket Pool: ");
+            System.out.println("2.Show all tickets: ");
+            System.out.println("3.Your Ticket History: ");
+            System.out.println("4.Exit: ");
+            System.out.println("Choose your option: ");
+            int vendorOption = input.nextInt();
+            if(vendorOption == 1){
+                TicketPool.addTicket(vendor);
+            } else if (vendorOption==2) {
+                System.out.println(TicketPool.tickets);
+            } else if (vendorOption==4) {
+            }
+        }
+
+        while(true){
+            try {
+                setupVendorConfiguration(vendor);
+                switch (userOption) {
+                    case 1:
+                        Vendor.vendorRegister();
+                        break;
+                    case 2:
+                        System.out.println("Customer Registration");
+                        break;
+                    case 3:
+                        Vendor vendor = new Vendor();
+                        Thread vendorThread = new Thread(vendor);
+                        vendorThread.start();
+                        vendorThread.join();
+                        Thread newVendorThread = new Thread("Chasith");
+                        newVendorThread.start();
+                        newVendorThread.join();
+                        break;
+                    case 4:
+                        System.out.println("Customer Login");
+                        break;
+                    case 5:
+                        System.out.println("Exit: ");
+
+                }
+            }catch (InputMismatchException e){
+                System.out.println("Please enter a valid option!");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
     }
+
 
 
     @Override
     public void run() {
-
+            setupVendorConfiguration(vendorLogin());
         try { Thread.sleep(1000000000);
         }catch (InterruptedException e)
         { Thread.currentThread().interrupt();}

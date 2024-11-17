@@ -3,12 +3,14 @@ public class Customer implements Runnable{
     private String customerName;
     private String customerEmail;
     private String customerPassword;
+    private String customerConfirmPassword;
 
     public Customer(int customerID,String customerName,String customerEmail, String customerPassword) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerPassword = customerPassword;
+        this.customerConfirmPassword = customerPassword;
     }
 
     public int getCustomerID() {
@@ -22,6 +24,9 @@ public class Customer implements Runnable{
     }
     public String getCustomerPassword() {
         return customerPassword;
+    }
+    public String getCustomerConfirmPassword() {
+        return customerConfirmPassword;
     }
 
     @Override

@@ -19,7 +19,13 @@ public class Main{
                         System.out.println("Customer Registration");
                         break;
                     case 3:
-                        Vendor.vendorLogin();
+                        Vendor vendor = new Vendor();
+                        Thread vendorThread = new Thread(vendor);
+                        vendorThread.start();
+                        vendorThread.join();
+                        Thread newVendorThread = new Thread("Chasith");
+                        newVendorThread.start();
+                        newVendorThread.join();
                         break;
                     case 4:
                         System.out.println("Customer Login");
@@ -30,6 +36,8 @@ public class Main{
                 }
             }catch (InputMismatchException e){
                 System.out.println("Please enter a valid option!");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }

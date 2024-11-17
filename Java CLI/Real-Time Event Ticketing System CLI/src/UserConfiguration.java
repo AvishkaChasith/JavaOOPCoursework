@@ -35,13 +35,8 @@ public class UserConfiguration {
         return maxTicketCapacity;
     }
 
-    public void setTotalTickets(int totalTickets) {
-        this.totalTickets = totalTickets;
-    }
 
-    public UserConfiguration(){}
-
-    public static UserConfiguration userConfigurationMenu(){
+    public static void userConfigurationMenu(){
         Scanner input = new Scanner(System.in);
         validInput=false;
         while (!validInput){
@@ -106,7 +101,9 @@ public class UserConfiguration {
         System.out.println("Max Ticket Capacity: "+user.getMaxTicketCapacity());
 
         System.out.println("User Configuration Successfully");
-        return user;
+        for (int i = 1; i <= userTotalTickets; i++) {
+            TicketPool userAdd = new TicketPool(i,new Vendor(0,"Admin","Admin@gmail.com","admin@123qwe","admin@123qwe"));
+            TicketPool.tickets.add(userAdd);
+        }
     }
-
 }
