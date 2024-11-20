@@ -9,7 +9,7 @@ public class Vendor implements Runnable {
     private static String vPassword;
     private static String vConfirmPassword;
     private static int vId;
-    public static int vendorOption;
+    public static boolean vendorOptionValidate;
 
     private  int vendorID;
     private  String vendorName;
@@ -159,12 +159,13 @@ public class Vendor implements Runnable {
     }
 
     public static void setupVendorConfiguration(Vendor vendor) {
-
+        vendorOptionValidate=false;
+        while(!vendorOptionValidate){
             System.out.println("Configuration Menu for "+vendor.getVendorName());
             System.out.println("1.Add tickets to the Ticket Pool: ");
             System.out.println("2.Show all tickets: ");
             System.out.println("3.Your Ticket History: ");
-            System.out.println("4.Exit: ");
+            System.out.println("4.Logout: ");
             System.out.println("Choose your option: ");
             int vendorOption = input.nextInt();
             if(vendorOption == 1){
@@ -172,40 +173,11 @@ public class Vendor implements Runnable {
             } else if (vendorOption==2) {
                 System.out.println(TicketPool.tickets);
             } else if (vendorOption==4) {
+                vendorOptionValidate = true;
+                Main.controlMenu();
+                break;
             }
         }
-
-        while(true){
-            try {
-                setupVendorConfiguration(vendor);
-                switch (userOption) {
-                    case 1:
-                        Vendor.vendorRegister();
-                        break;
-                    case 2:
-                        System.out.println("Customer Registration");
-                        break;
-                    case 3:
-                        Vendor vendor = new Vendor();
-                        Thread vendorThread = new Thread(vendor);
-                        vendorThread.start();
-                        vendorThread.join();
-                        Thread newVendorThread = new Thread("Chasith");
-                        newVendorThread.start();
-                        newVendorThread.join();
-                        break;
-                    case 4:
-                        System.out.println("Customer Login");
-                        break;
-                    case 5:
-                        System.out.println("Exit: ");
-
-                }
-            }catch (InputMismatchException e){
-                System.out.println("Please enter a valid option!");
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
     }
 
 

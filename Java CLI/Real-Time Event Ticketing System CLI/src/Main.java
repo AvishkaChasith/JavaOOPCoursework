@@ -19,13 +19,7 @@ public class Main{
                         System.out.println("Customer Registration");
                         break;
                     case 3:
-                        Vendor vendor = new Vendor();
-                        Thread vendorThread = new Thread(vendor);
-                        vendorThread.start();
-                        vendorThread.join();
-                        Thread newVendorThread = new Thread("Chasith");
-                        newVendorThread.start();
-                        newVendorThread.join();
+                        Vendor.setupVendorConfiguration(Vendor.vendorLogin());
                         break;
                     case 4:
                         System.out.println("Customer Login");
@@ -36,8 +30,6 @@ public class Main{
                 }
             }catch (InputMismatchException e){
                 System.out.println("Please enter a valid option!");
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
     }
@@ -88,5 +80,40 @@ public class Main{
 
 
     }
+
+    public static void controlMenu(){
+        while(true){
+            try {
+                applicationMenu();
+                switch (userOption) {
+                    case 1:
+                        Vendor.vendorRegister();
+                        break;
+                    case 2:
+                        System.out.println("Customer Registration");
+                        break;
+                    case 3:
+                        Vendor vendor = new Vendor();
+                        Thread vendorThread = new Thread(vendor);
+                        vendorThread.start();
+                        vendorThread.join();
+                        break;
+                    case 4:
+                        System.out.println("Customer Login");
+                        break;
+                    case 5:
+                        System.out.println("Exit: ");
+
+                }
+            }catch (InputMismatchException e){
+                System.out.println("Please enter a valid option!");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+
 
 }

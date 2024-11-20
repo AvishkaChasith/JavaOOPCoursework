@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class TicketPool{
     private static int lastTicketID=UserConfiguration.userTotalTickets;
     private static int vendorTicketsPerRelease;
+    private static int vendorAddTicket;
     static Scanner input = new Scanner(System.in);
 
     private int ticketID;
@@ -22,6 +23,8 @@ public class TicketPool{
     public static void addTicket(Vendor vendor){
         synchronized (tickets){
             System.out.println("💻☆*: .｡. o(≧▽≦)o .｡.:*☆💻 "+vendor.getVendorName()+" Profile 💻☆*: .｡. o(≧▽≦)o .｡.:*☆💻");
+            System.out.println("Tickets amount to add: ");
+            vendorAddTicket=input.nextInt();
             System.out.print("Tickets per release amount: ");
             vendorTicketsPerRelease=input.nextInt();
             for (int i = 0; i < vendorTicketsPerRelease; i++){
