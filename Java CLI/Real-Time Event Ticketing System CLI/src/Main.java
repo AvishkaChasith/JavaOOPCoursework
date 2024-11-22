@@ -16,7 +16,7 @@ public class Main{
                         Vendor.vendorRegister();
                         break;
                     case 2:
-                        System.out.println("Customer Registration");
+                        Customer.customerRegister();
                         break;
                     case 3:
                         Vendor.setupVendorConfiguration(Vendor.vendorLogin());
