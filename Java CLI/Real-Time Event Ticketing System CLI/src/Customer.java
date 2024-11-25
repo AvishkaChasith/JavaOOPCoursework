@@ -138,7 +138,7 @@ public class Customer implements Runnable{
         }
         Customer customer = customers.get(cName);
         while(true){
-            System.out.println("Customer Password: ");
+            System.out.print("Customer Password: ");
             cPassword = input.nextLine();
             if(cPassword.trim().isEmpty()){
                 System.out.println("Password can not be empty");
