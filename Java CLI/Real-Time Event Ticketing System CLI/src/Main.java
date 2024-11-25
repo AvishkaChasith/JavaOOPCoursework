@@ -25,6 +25,8 @@ public class Main{
                         Customer.setupCustomerConfiguration(Customer.customerLogin());
                         break;
                     case 5:
+                        System.out.println(TicketPool.tickets);
+                    case 6:
                         System.out.println("Exit: ");
 
                 }
@@ -46,7 +48,8 @@ public class Main{
             System.out.println("               2) Customer Register: Enter 2"  );
             System.out.println("               3) Vendor Login: Enter 3"  );
             System.out.println("               4) Customer Login: Enter 4"  );
-            System.out.println("               5) Exit: Enter 5"  );
+            System.out.println("               5) Show Ticket Status: Enter 5"  );
+            System.out.println("               6) Exit: " );
             System.out.println(" ");
             System.out.print("Enter your option: ");
             try{
@@ -64,7 +67,9 @@ public class Main{
                     userOptionValidity = true;
                 } else if (userOption==5) {
                     userOptionValidity = true;
-                } else {
+                } else if (userOption==6) {
+                    userOptionValidity = true;
+                }else{
                     System.out.println("Invalid option");
                     userOptionValidity=false;
                 }

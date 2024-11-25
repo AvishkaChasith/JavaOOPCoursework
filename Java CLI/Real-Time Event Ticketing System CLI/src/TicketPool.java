@@ -7,6 +7,7 @@ public class TicketPool{
     private static int lastTicketID;
     private static int vendorTicketsPerRelease;
     private static int vendorAddTicket;
+    private static int removeTicketID;
 
     private static int customerBuyTicket;
     static Scanner input = new Scanner(System.in);
@@ -31,7 +32,7 @@ public class TicketPool{
     }
 
 
-    static List<TicketPool> tickets = Collections.synchronizedList(new ArrayList<>(5000));
+    static List<Integer> tickets = Collections.synchronizedList(new ArrayList<>(5000));
 
 
 
@@ -52,8 +53,7 @@ public class TicketPool{
                         break;
                     }
                     lastTicketID++;
-                    TicketPool addTicket = new TicketPool(lastTicketID,vendor);
-                    tickets.add(addTicket);
+                    tickets.add(lastTicketID);
                     currentTicket++;
                 }
             }
@@ -65,10 +65,10 @@ public class TicketPool{
             System.out.println("💻☆*: .｡. o(≧▽≦)o .｡.:*☆💻"+customer.getCustomerName()+" 💻☆*: .｡. o(≧▽≦)o .｡.:*☆💻");
             System.out.print("Tickets amount to buy: ");
             customerBuyTicket= input.nextInt();
+            removeTicketID=customerBuyTicket;
             for (int i = 0;i < customerBuyTicket;i++){
-                lastTicketID--;
-                TicketPool removeTicket = new TicketPool(lastTicketID);
-                tickets.remove(removeTicket);
+                removeTicketID--;
+                tickets.remove(removeTicketID);
             }
 
         }
