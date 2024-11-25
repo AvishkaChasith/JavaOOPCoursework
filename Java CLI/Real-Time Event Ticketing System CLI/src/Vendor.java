@@ -26,7 +26,7 @@ public class Vendor implements Runnable {
         this.vendorPassword = vendorPassword;
         this.vendorConfirmPassword = vendorConfirmPassword;
     }
-    public Vendor (){}
+
 
     public int getVendorID() {
         return vendorID;

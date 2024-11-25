@@ -22,7 +22,7 @@ public class Main{
                         Vendor.setupVendorConfiguration(Vendor.vendorLogin());
                         break;
                     case 4:
-                        System.out.println("Customer Login");
+                        Customer.setupCustomerConfiguration(Customer.customerLogin());
                         break;
                     case 5:
                         System.out.println("Exit: ");
@@ -90,25 +90,20 @@ public class Main{
                         Vendor.vendorRegister();
                         break;
                     case 2:
-                        System.out.println("Customer Registration");
+                        Customer.customerRegister();
                         break;
                     case 3:
-                        Vendor vendor = new Vendor();
-                        Thread vendorThread = new Thread(vendor);
-                        vendorThread.start();
-                        vendorThread.join();
+                        Vendor.setupVendorConfiguration(Vendor.vendorLogin());
                         break;
                     case 4:
-                        System.out.println("Customer Login");
+                        Customer.setupCustomerConfiguration(Customer.customerLogin());
                         break;
                     case 5:
                         System.out.println("Exit: ");
 
                 }
-            }catch (InputMismatchException e){
+            }catch (InputMismatchException e) {
                 System.out.println("Please enter a valid option!");
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
 

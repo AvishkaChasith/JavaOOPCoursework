@@ -52,7 +52,7 @@ public class Customer implements Runnable{
             System.out.println("🚀🚀🚀 Customer Registration 🚀🚀🚀");
             System.out.println(" ");
             while(true){
-                System.out.println("Name:");
+                System.out.print("Name: ");
                 cName = input.nextLine();
                 if(cName.trim().isEmpty()){
                     System.out.println("Name can not be empty");
@@ -68,7 +68,7 @@ public class Customer implements Runnable{
                 }
             }
             while(true){
-                System.out.println("Emails");
+                System.out.print("Email: ");
                 cEmail = input.nextLine();
                 if(cName.trim().isEmpty()){
                     System.out.println("Email can not be empty");
@@ -82,7 +82,7 @@ public class Customer implements Runnable{
                 }
             }
             while(true){
-                System.out.println("Password: ");
+                System.out.print("Password: ");
                 cPassword = input.nextLine();
                 if(cPassword.trim().isEmpty()){
                     System.out.println("Password can not be empty");
@@ -95,7 +95,7 @@ public class Customer implements Runnable{
                 }
             }
             while(true){
-                System.out.println("Confirm Password: ");
+                System.out.print("Confirm Password: ");
                 cConfirmPassword = input.nextLine();
                 if(cConfirmPassword.trim().isEmpty()){
                     System.out.println("Confirm Password can not be empty");
@@ -155,13 +155,21 @@ public class Customer implements Runnable{
         return customer;
     }
 
-    public static void setupCustomerConfiguration(){
+    public static void setupCustomerConfiguration(Customer customer){
         customerOptionValidate = false;
         while(!customerOptionValidate){
             System.out.println(" ");
             System.out.println("1.Buy Ticket");
-
-
+            System.out.println("2.Exit");
+            System.out.println(" ");
+            int customerOption = input.nextInt();
+            if(customerOption == 1){
+                TicketPool.removeTicket(customer);
+            }else if(customerOption == 2){
+                customerOptionValidate = true;
+                Main.controlMenu();
+                break;
+            }
         }
     }
 
@@ -171,5 +179,6 @@ public class Customer implements Runnable{
     public void run() {
 
     }
+
 
 }
