@@ -11,34 +11,23 @@ public class TicketPool{
 
     private static int customerBuyTicket;
     static Scanner input = new Scanner(System.in);
-    private String vendorName;
-    private  String customerName;
 
-    private int ticketID;
     private Vendor vendor;
     private Customer customer;
+    private int ticketID;
 
     public TicketPool(int ticketID,Vendor vendor){
-        this.ticketID=ticketID;
+        this.ticketID = ticketID;
         this.vendor=vendor;
     }
-
-    public TicketPool(int lastTicketID, Customer customer) {
-        this.lastTicketID=lastTicketID;
-        this.customer=customer;
-    }
-    public TicketPool(int lastTicketID) {
-        this.lastTicketID=lastTicketID;
+    public TicketPool(int ticketID,Customer customer){
+        this.ticketID = ticketID;
+        this.customer = customer;
     }
 
+    static List<TicketPool> tickets = Collections.synchronizedList(new ArrayList<TicketPool>(5000));
 
-    static List<Integer> tickets = Collections.synchronizedList(new ArrayList<>(5000));
-
-
-
-
-
-    public static void addTicket(Vendor vendor){
+    public static synchronized void addTicket(Vendor vendor){
         synchronized (tickets){
             System.out.println("💻☆*: .｡. o(≧▽≦)o .｡.:*☆💻 "+vendor.getVendorName()+" Profile 💻☆*: .｡. o(≧▽≦)o .｡.:*☆💻");
             System.out.print("Tickets amount to add: ");
@@ -51,10 +40,12 @@ public class TicketPool{
                 for(int i = 0; i < vendorTicketsPerRelease;i++){
                     if (currentTicket==vendorAddTicket){
                         break;
+                    }else{
+                        lastTicketID++;
+                        TicketPool addTickets = new TicketPool(lastTicketID,vendor);
+                        tickets.add(addTickets);
+                        currentTicket++;
                     }
-                    lastTicketID++;
-                    tickets.add(lastTicketID);
-                    currentTicket++;
                 }
             }
         }
@@ -68,18 +59,20 @@ public class TicketPool{
             removeTicketID=customerBuyTicket;
             for (int i = 0;i < customerBuyTicket;i++){
                 removeTicketID--;
-                tickets.remove(removeTicketID);
+                TicketPool removeTickets = new TicketPool(removeTicketID, customer);
+                tickets.remove(removeTickets);
             }
 
         }
     }
     @Override
     public String toString(){
-        return "ticketID: "+ticketID+",add by vendor: "+vendor.getVendorName()+"\n ";
+        if (customer==null){
+            return "Ticket ID - "+ticketID+" , add by vendor - "+vendor.getVendorName()+"\n";
+        }else {
+            return "Ticket ID - "+ticketID+" , bought by customer - "+customer.getCustomerName()+"\n";
+        }
 
     }
-//    @Override
-//    public String toString(){
-//        return "ticketID: "+ticketID+", buy by customer:"+customer.getCustomerName()+"\n";
-//    }
+
 }
