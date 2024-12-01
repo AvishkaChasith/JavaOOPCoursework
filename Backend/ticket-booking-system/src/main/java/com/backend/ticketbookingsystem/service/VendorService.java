@@ -13,24 +13,25 @@ public class VendorService {
     @Autowired
     VendorRepository vendorRepository;
 
-    public Vendor vendorRegister(Vendor vendor){
-        return vendorRepository.save(vendor);
+    public void vendorRegister(Vendor vendor){
+        vendorRepository.save(vendor);
     }
 
     public Boolean vendorExists(String vendorEmail){
-        return vendorRepository.findByVendorEmail(vendorEmail)!=null;
+        return vendorRepository.findByVendorEmail(vendorEmail).isPresent();
     }
 
 
     public Boolean confirmVendor(String vendorEmail,String vendorPassword) {
-        Optional<?> vendor = vendorRepository.findByVendorEmail(vendorEmail);
-        if (vendor) {
-            return true;
+        Optional<Vendor> optionalVendor = vendorRepository.findByVendorEmail(vendorEmail);
+        if (optionalVendor.isPresent()){
+            if (optionalVendor.get().getVendorPassword().equals(vendorPassword)){
+                return true;
+            }else{
+                return false;
+            }
         }else {
             return false;
         }
     }
-
-
-
 }

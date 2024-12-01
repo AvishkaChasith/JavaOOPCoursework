@@ -1,4 +1,5 @@
 package com.backend.ticketbookingsystem.controller;
+import com.backend.ticketbookingsystem.DTO.VendorLoginRequest;
 import com.backend.ticketbookingsystem.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,10 @@ public class VendorController {
     }
 
     @PostMapping("/vendorLogin")
-    public ResponseEntity<?>loginVendor(@RequestBody String vendorEmail){
-        if (vendorService.confirmVendor(vendorEmail)){
+    public ResponseEntity<?>loginVendor(@RequestBody VendorLoginRequest vendorLoginRequest){
+        String vendorEmail = vendorLoginRequest.getVendorEmail();
+        String vendorPassword = vendorLoginRequest.getVendorPassword();
+        if (vendorService.confirmVendor(vendorEmail, vendorPassword)){
             return ResponseEntity.ok().body("Vendor logging in successfully");
         }else {
             return ResponseEntity.badRequest().body("Vendor credentials are incorrect");
