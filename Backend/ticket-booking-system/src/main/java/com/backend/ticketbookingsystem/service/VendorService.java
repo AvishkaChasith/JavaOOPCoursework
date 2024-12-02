@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.backend.ticketbookingsystem.repository.VendorRepository;
 import com.backend.ticketbookingsystem.collection.Vendor;
-
 import java.util.Optional;
 
 @Service
-public class VendorService {
+public class VendorService{
 
     @Autowired
     VendorRepository vendorRepository;
@@ -20,7 +19,6 @@ public class VendorService {
     public Boolean vendorExists(String vendorEmail){
         return vendorRepository.findByVendorEmail(vendorEmail).isPresent();
     }
-
 
     public Boolean confirmVendor(String vendorEmail,String vendorPassword) {
         Optional<Vendor> optionalVendor = vendorRepository.findByVendorEmail(vendorEmail);
@@ -34,4 +32,6 @@ public class VendorService {
             return false;
         }
     }
+
+
 }
