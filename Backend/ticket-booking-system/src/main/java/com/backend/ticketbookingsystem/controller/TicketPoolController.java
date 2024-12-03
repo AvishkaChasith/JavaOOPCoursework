@@ -1,6 +1,7 @@
 package com.backend.ticketbookingsystem.controller;
 
 
+import com.backend.ticketbookingsystem.input.CustomerInputs;
 import com.backend.ticketbookingsystem.input.VendorInputs;
 import com.backend.ticketbookingsystem.service.TicketPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class TicketPoolController {
     public ResponseEntity<?> addTicket(@RequestBody VendorInputs vendorInputs){
         ticketPoolService.ticketAdding(vendorInputs.getVendorId(),vendorInputs.getTotalTickets(),vendorInputs.getTicketsPerRelease(),vendorInputs.getVendorRetrievalInterval());
         return ResponseEntity.ok().body("Ticket adding successfuly");
+    }
+    @PostMapping("/buyTicket")
+    public ResponseEntity<?> removeTicket(@RequestBody CustomerInputs customerInputs){
+        ticketPoolService.ticketRemoving(customerInputs.getCustomerId(),customerInputs.getBuyTickets());
+        return ResponseEntity.ok().body("Ticket Buying successfully");
     }
 }
