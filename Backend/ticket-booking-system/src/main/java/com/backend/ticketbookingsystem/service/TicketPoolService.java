@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.backend.ticketbookingsystem.repository.TicketPoolRepository;
 
+import javax.management.Query;
 import java.util.List;
 
 
@@ -27,16 +28,18 @@ public class TicketPoolService {
     }
 
     public void ticketRemoving(int customerId,int buyTickets){
-        CustomerInputs customer1 = new CustomerInputs(customerId,buyTickets);
+        CustomerInputs customer1 = new CustomerInputs(customerId,buyTickets,this);
         Thread customerThread = new Thread(customer1);
         customerThread.start();
     }
 
-    public void removeTicket(int buyTickets){
-        List<TicketPool> ticketBuy = ticketPoolRepository.findFirstNByOrderByTicketIdAsc(buyTickets);
-        ticketPoolRepository.deleteAll(ticketBuy);
+    public void removeTicket(List<TicketPool> ticketPoolList){
+        ticketPoolRepository.deleteAll(ticketPoolList);
     }
 
+    public List<TicketPool> findFirstNByOrderByTicketIdAsc(int n){
+        return ticketPoolRepository.findFirstNByOrderByTicketIdAsc(n);
+    }
 
 
 }
