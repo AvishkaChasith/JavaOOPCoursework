@@ -8,20 +8,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.backend.ticketbookingsystem.collection.Vendor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/vendors")
+@CrossOrigin(origins = "http://localhost:4200")
 public class VendorController {
 
     @Autowired
     VendorService vendorService;
 
-    @PostMapping("/vendorRegister")
+    @PostMapping(value = "/vendorRegister", produces = "application/json")
     public ResponseEntity<?> createVendor(@RequestBody Vendor vendor){
+        Map<String,String> response = new HashMap<>();
         if (vendorService.vendorExists(vendor.getVendorEmail())){
-            return ResponseEntity.badRequest().body("This email is already taken");
+            response.put("message:"," This email is already taken");
+            return ResponseEntity.badRequest().body(response);
         }else {
           vendorService.vendorRegister(vendor);
-          return ResponseEntity.ok().body("Vendor registered successfully");
+          response.put("message: ","Vendor registered successfully");
+          return ResponseEntity.ok().body(response);
         }
     }
 
