@@ -12,7 +12,7 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'vendorLogin',
+        path: 'vendorRegister/vendorLogin',
         component:VendorLoginComponent
     },
     {
@@ -28,7 +28,7 @@ export const routes: Routes = [
         component:CustomerRegisterComponent
     },
     {
-        path:'customerLogin',
+        path:'customerRegister/customerLogin',
         component:CustomerLoginComponent
     }
 ];

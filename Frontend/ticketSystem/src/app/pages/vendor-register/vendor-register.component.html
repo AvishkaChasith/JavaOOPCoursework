@@ -1,4 +1,6 @@
-
+<nav class="navbar navbar-light bg-light d-flex justify-content-center align-items-center" style="background-color: rgba(0, 123, 255, 0.5) !important;">
+  <span class="navbar-brand mb-0 h1 ">Vendor Registration Space</span>
+</nav>
   
   <!-- Pills content -->
   <div class="tab-content">
@@ -9,25 +11,25 @@
       <form (ngSubmit)="onSubmit()">
         <!-- Email input -->
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="email" id="loginName"  name="vendorEmail" [(ngModel)]="vendorRegisterObj.vendorEmail" class="form-control"  />
+          <input type="email" id="vendorName"  name="vendorName" [(ngModel)]="vendorRegisterObj.vendorName" class="form-control"  />
           <label class="form-label" for="loginName">First Name</label>
         </div>
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="email" id="loginName"  name="vendorEmail" [(ngModel)]="vendorRegisterObj.vendorEmail" class="form-control"  />
+          <input type="email" id="vendorLastName"  name="vendorLastName" [(ngModel)]="vendorRegisterObj.vendorLastName" class="form-control"  />
           <label class="form-label" for="loginName">Last Name</label>
         </div>
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="email" id="loginName"  name="vendorEmail" [(ngModel)]="vendorRegisterObj.vendorEmail" class="form-control"  />
+          <input type="email" id="vendorPhone"  name="vendorPhone" [(ngModel)]="vendorRegisterObj.vendorPhone" class="form-control"  />
           <label class="form-label" for="loginName">Phone Number</label>
         </div>
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="email" id="loginName"  name="vendorEmail" [(ngModel)]="vendorRegisterObj.vendorEmail" class="form-control"  />
+          <input type="email" id="vendorEmail"  name="vendorEmail" [(ngModel)]="vendorRegisterObj.vendorEmail" class="form-control"  />
           <label class="form-label" for="loginName">Email Address</label>
         </div>
   
         <!-- Password input -->
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="password" id="loginPassword" name="vendorPassword" [(ngModel)]="vendorRegisterObj.vendorPassword" class="form-control" />
+          <input type="password" id="vendorPassword" name="vendorPassword" [(ngModel)]="vendorRegisterObj.vendorPassword" class="form-control" />
           <label class="form-label" for="loginPassword">Password</label>
         </div>
   
