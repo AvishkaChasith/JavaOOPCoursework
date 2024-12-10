@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.backend.ticketbookingsystem.repository.TicketPoolRepository;
 
-import javax.management.Query;
 import java.util.List;
 
 
@@ -16,7 +15,7 @@ public class TicketPoolService {
     @Autowired
     TicketPoolRepository ticketPoolRepository;
 
-    public void ticketAdding(int vendorId, int totalTickets, int ticketRetrievalRate,int vendorRetrievalInterval){
+    public void ticketAdding(int vendorId, int totalTickets, int ticketRetrievalRate, int vendorRetrievalInterval) {
         VendorInputs vendor1 = new VendorInputs(vendorId,totalTickets,ticketRetrievalRate,vendorRetrievalInterval,this);
         Thread vendorThread = new Thread(vendor1);
         vendorThread.start();
@@ -33,13 +32,11 @@ public class TicketPoolService {
         customerThread.start();
     }
 
-    public void removeTicket(List<TicketPool> ticketPoolList){
-        ticketPoolRepository.deleteAll(ticketPoolList);
+    public List<TicketPool> getAvailableTickets(){
+        return ticketPoolRepository.findByStatus("available");
     }
-
-    public List<TicketPool> findFirstNByOrderByTicketIdAsc(int n){
-        return ticketPoolRepository.findFirstNByOrderByTicketIdAsc(n);
+    public void updateTicket(TicketPool ticketPool){
+        ticketPoolRepository.save(ticketPool);
     }
-
 
 }

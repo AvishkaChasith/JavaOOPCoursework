@@ -8,33 +8,33 @@
     <h2 class="text-center mb-4">User Register</h2>
     <br>
     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-      <form >
+      <form (ngSubmit)="onSubmit()">
         <!-- Email input -->
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="email" id="customerName"  name="customerName" class="form-control"  />
+          <input type="text" id="customerName"  name="customerName" [(ngModel)]="customerObj.customerName" class="form-control"  />
           <label class="form-label" for="loginName">First Name</label>
         </div>
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="email" id="customerLastName"  name="customerLastName" class="form-control"  />
+          <input type="text" id="customerLastName"  name="customerLastName"  [(ngModel)]="customerObj.customerLastName" class="form-control"  />
           <label class="form-label" for="loginName">Last Name</label>
         </div>
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="email" id="customerEmail"  name="customerEmail" class="form-control"  />
+          <input type="email" id="customerEmail"  name="customerEmail"  [(ngModel)]="customerObj.customerEmail" class="form-control"  />
           <label class="form-label" for="loginName">Email Address</label>
         </div>
   
         <!-- Password input -->
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="password" id="customerPassword" name="customerPassword" class="form-control" />
+          <input type="password" id="customerPassword" name="customerPassword" [(ngModel)]="customerObj.customerPassword" class="form-control" />
           <label class="form-label" for="loginPassword">Password</label>
         </div>
   
         <div class="col-12 text-center">
-         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Register</button>
+         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4"[disabled]="isSubmitting" (click)="onSubmit()">Register</button>
         </div>
       </form>
-      <div *ngI="responseMessage" class="alert alerti info mt-4">
-        <p></p>
+      <div *ngIf="responseMessage" class="response-message">
+        <p class="response-message col-12 text-center">{{responseMessage}}</p>
       </div>
 
     </div>

@@ -12,5 +12,16 @@ public class TicketPool {
     private int ticketId;
     private int vendorId;
     private String vendorName;
+    private String  status;
+
+
+
+
+    @Override
+    public String toString() {
+        return "TicketPool [ticketId=" + ticketId + ", vendorId=" + vendorId + ", vendorName=" + vendorName + ", isAvailable=";
+    }
 
 }
+
+

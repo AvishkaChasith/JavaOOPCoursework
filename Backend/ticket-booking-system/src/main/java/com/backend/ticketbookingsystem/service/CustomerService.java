@@ -13,8 +13,9 @@ public class CustomerService{
     @Autowired
     CustomerRepository customerRepository;
 
-    public void customerRegister(Customer customer){
+    public Integer customerRegister(Customer customer){
         customerRepository.save(customer);
+        return customer.getCustomerId();
     }
 
     public Boolean customerExists(String customerEmail) {

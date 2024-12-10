@@ -2,6 +2,7 @@ package com.backend.ticketbookingsystem.controller;
 
 import com.backend.ticketbookingsystem.DTO.CustomerLoginRequest;
 import com.backend.ticketbookingsystem.collection.Customer;
+import com.backend.ticketbookingsystem.configuration.ResponseMessage;
 import com.backend.ticketbookingsystem.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,10 @@ public class CustomerController {
     @PostMapping("/customerRegister")
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
         if (customerService.customerExists(customer.getCustomerEmail())){
-            return ResponseEntity.badRequest().body("This email is already taken");
+            return ResponseEntity.badRequest().body(new ResponseMessage("This email is already taken"));
         }else{
             customerService.customerRegister(customer);
-            return ResponseEntity.ok().body("customer registered successfully");
+            return ResponseEntity.ok().body(new ResponseMessage("customer registered successfully"));
         }
     }
 
@@ -32,12 +33,9 @@ public class CustomerController {
         String customerEmail = customerLoginRequest.getCustomerEmail();
         String customerPassword = customerLoginRequest.getCustomerPassword();
         if (customerService.confirmCustomer(customerEmail,customerPassword)){
-            return ResponseEntity.ok().body("customer logged in successfully");
+            return ResponseEntity.ok().body(new ResponseMessage("customer logged in successfully"));
         }else {
-            return ResponseEntity.badRequest().body("customer credentials are incorrect");
+            return ResponseEntity.badRequest().body(new ResponseMessage("customer credentials are incorrect"));
         }
     }
-
-
-
 }

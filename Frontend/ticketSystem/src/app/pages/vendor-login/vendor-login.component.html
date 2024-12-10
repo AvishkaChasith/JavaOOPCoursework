@@ -6,27 +6,26 @@
   <div class="tab-content">
     <br><br><br><br><br><br><br><br><br><br>
     <h2 class="text-center mb-4">Vendor Login</h2>
-    <br>
     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-      <form >
+      <form  (ngSubmit)="onSubmit()">
         <!-- Email input -->
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="email" id="vendorEmail"  name="vendorEmail" class="form-control"  />
+          <input type="email" id="vendorEmail"  name="vendorEmail"[(ngModel)]="vendor.vendorEmail" class="form-control"  />
           <label class="form-label" for="loginName">Email Address</label>
         </div>
   
         <!-- Password input -->
         <div data-mdb-input-init class="form-outline mb-4 col-4 mx-auto">
-          <input type="password" id="vendorPassword" name="vendorPassword"class="form-control" />
+          <input type="password" id="vendorPassword" name="vendorPassword"[(ngModel)]="vendor.vendorPassword" class="form-control" />
           <label class="form-label" for="loginPassword">Password</label>
         </div>
   
         <div class="col-12 text-center">
-         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Login</button>
+         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4" [disabled]="isSubmitting" (click)="onSubmit()">Login</button>
         </div>
       </form>
-      <div *ngI="responseMessage" class="alert alerti info mt-4">
-        <p></p>
+      <div *ngIf="responseMessage" class="response-message">
+        <p class="response-message col-12 text-center">{{responseMessage}}</p>
       </div>
     </div>
   </div>

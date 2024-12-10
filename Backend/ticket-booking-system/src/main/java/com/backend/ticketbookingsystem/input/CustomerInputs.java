@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -24,21 +25,25 @@ public class CustomerInputs implements Runnable{
 
     @Override
     public void run(){
-        List<TicketPool> ticketPoolList = ticketPoolService.findFirstNByOrderByTicketIdAsc(buyTickets);
+        List<TicketPool> ticketPoolList = ticketPoolService.getAvailableTickets();
 
         synchronized (ticketPoolService){
             if (ticketPoolList.size()>= buyTickets){
-                try(BufferedWriter writer = new BufferedWriter(new FileWriter("buyTickets.txt",true))){
-                    writer.write("Customer ID: "+customerId+"buy tickets:");
-                    for (TicketPool ticketPool : ticketPoolList){
-                        writer.write(ticketPool.getTicketId());
+
+                try(BufferedWriter customerWriter = new BufferedWriter(new FileWriter("buyTickets.txt",true))){
+
+                    for (int i = 0; i < buyTickets; i++) {
+                        TicketPool ticketPool = ticketPoolList.get(i);
+                        customerWriter.write("Customer ID: "+customerId+" buy tickets:");
+                        customerWriter.write(String.valueOf(ticketPool.getTicketId()));
+                        customerWriter.newLine();
+                        ticketPool.setStatus("Sold");
+                        ticketPoolService.updateTicket(ticketPool);
                     }
-                    writer.newLine();
-                }catch (Exception e){
+                    customerWriter.newLine();
+                }catch (IOException e){
                     e.printStackTrace();
                 }
-
-                ticketPoolService.removeTicket(ticketPoolList);
                 System.out.println("Ticket buy successfully for customer "+ customerId);
 
             }else{

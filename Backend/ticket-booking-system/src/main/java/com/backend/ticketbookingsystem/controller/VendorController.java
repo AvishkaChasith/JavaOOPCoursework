@@ -1,5 +1,6 @@
 package com.backend.ticketbookingsystem.controller;
 import com.backend.ticketbookingsystem.DTO.VendorLoginRequest;
+import com.backend.ticketbookingsystem.configuration.ResponseMessage;
 import com.backend.ticketbookingsystem.input.VendorInputs;
 import com.backend.ticketbookingsystem.repository.VendorRepository;
 import com.backend.ticketbookingsystem.service.VendorService;
@@ -21,14 +22,11 @@ public class VendorController {
 
     @PostMapping(value = "/vendorRegister", produces = "application/json")
     public ResponseEntity<?> createVendor(@RequestBody Vendor vendor){
-        Map<String,String> response = new HashMap<>();
         if (vendorService.vendorExists(vendor.getVendorEmail())){
-            response.put("message:"," This email is already taken");
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.badRequest().body(new ResponseMessage(" This email is already taken"));
         }else {
           vendorService.vendorRegister(vendor);
-          response.put("message: ","Vendor registered successfully");
-          return ResponseEntity.ok().body(response);
+          return ResponseEntity.ok().body(new ResponseMessage("Vendor registered successfully"));
         }
     }
 
@@ -37,9 +35,9 @@ public class VendorController {
         String vendorEmail = vendorLoginRequest.getVendorEmail();
         String vendorPassword = vendorLoginRequest.getVendorPassword();
         if (vendorService.confirmVendor(vendorEmail, vendorPassword)){
-            return ResponseEntity.ok().body("Vendor logging in successfully");
+            return ResponseEntity.ok().body(new ResponseMessage("Vendor logging in successfully"));
         }else {
-            return ResponseEntity.badRequest().body("Vendor credentials are incorrect");
+            return ResponseEntity.badRequest().body(new ResponseMessage("Vendor credentials are incorrect"));
         }
     }
 }

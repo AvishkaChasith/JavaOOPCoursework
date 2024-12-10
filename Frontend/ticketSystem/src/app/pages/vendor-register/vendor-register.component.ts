@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { VendorService } from '../../services/vendor.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vendor-register',
@@ -21,15 +22,25 @@ export class VendorRegisterComponent {
   };
 
   responseMessage: string = '';
+  isSubmitting: boolean = false;
 
-  constructor(private vendorService: VendorService) {}
+  constructor(private vendorService: VendorService, private router: Router) {}
 
   onSubmit() {
-    this.vendorService
-      .vendorRegister(this.vendorRegisterObj)
-      .subscribe((response: any) => {
+    if (this.isSubmitting) return;
+    this.isSubmitting = true;
+    this.vendorService.vendorRegister(this.vendorRegisterObj).subscribe(
+      (response: any) => {
         this.responseMessage = response.message;
-        // this.router.navigate(['/vendor-login']);
-      });
+        if (response.message === 'Vendor registered successfully') {
+          this.router.navigate(['home']);
+        }
+      },
+      (error) => {
+        this.responseMessage =
+          error.error.message || 'Registration failed. Please try again later';
+        this.isSubmitting = false;
+      }
+    );
   }
 }
