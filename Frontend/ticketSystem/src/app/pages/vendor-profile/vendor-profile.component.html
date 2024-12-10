@@ -1,0 +1,31 @@
+<nav class="navbar navbar-light bg-light d-flex justify-content-center align-items-center" style="background-color: rgba(0, 123, 255, 0.5) !important;">
+    <span class="navbar-brand mb-0 h1 ">Vendor Ticket Configuration</span>
+  </nav>
+
+<div class="tab-content col-3 mx-auto">
+    <br><br><br><br><br><br><br><br><br><br>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+        <label for="formGroupExampleInput">Total tickets</label>
+        <input type="text" class="form-control" id="totalTickets" name="totalTickets" [(ngModel)]="ticketAdd.totalTickets" placeholder="">
+        </div>
+        <br><br>
+        <div class="form-group">
+        <label for="formGroupExampleInput2">Tickets per release</label>
+        <input type="text" class="form-control" id="ticketsPerRelease" name="ticketsPerRelease" [(ngModel)]="ticketAdd.ticketsPerRelease" placeholder="">
+        </div>
+        <br><br>
+        <div class="form-group">
+        <label for="formGroupExampleInput2">Vendor retrieval interval</label>
+        <input type="text" class="form-control" id="vendorRetrievalInterval" name="vendorRetrievalInterval" [(ngModel)]="ticketAdd.vendorRetrievalInterval "placeholder="">
+        </div>
+        <br><br>
+        <div class="col-12 text-center">
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4" [disabled]="isSubmitting" (click)="onSubmit()">Add tickets</button>
+           </div>
+    </form>
+    <div *ngIf="responseMessage" class="response-message">
+        <p class="response-message col-12 text-center">{{responseMessage}}</p>
+      </div>
+
+</div>
